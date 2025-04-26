@@ -1,5 +1,5 @@
 import express from "express";
-import { getAllProducts, getProductById } from "../Product/productController.js";
+import { getAllProducts, getProductById, getProductByCategory } from "../Product/productController.js";
 
 const router = express.Router();
 
@@ -12,5 +12,7 @@ router.get("/products", getAllProducts);
 // @desc    Get a single product
 // @access  Public
 router.get("/products/:id", getProductById);
+
+router.get("/products/category/:category", getProductByCategory);
 
 export default router;
