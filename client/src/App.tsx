@@ -19,6 +19,7 @@ import Grocery from './pages/categories/grocery'
 import Toys from './pages/categories/toys'
 import HomeAppliances from './pages/categories/home-appliances'
 import Sports from './pages/categories/sports'
+import OrderConfirmation from './pages/order-confirmation'
 
 // Layout wrapper component
 const MainLayout = ({ children }: { children: React.ReactNode }) => {
@@ -52,6 +53,14 @@ function App() {
           <SecondaryLayout>
             <ProtectedRoute>
               <Checkout />
+            </ProtectedRoute>
+          </SecondaryLayout>
+        } />
+
+        <Route path='/order-confirmation' element={
+          <SecondaryLayout>
+            <ProtectedRoute>
+              <OrderConfirmation />
             </ProtectedRoute>
           </SecondaryLayout>
         } />

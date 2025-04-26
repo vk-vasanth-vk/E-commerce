@@ -33,7 +33,7 @@ const Checkout = () => {
     const [modalType, setModalType] = useState<'address' | 'payment'>('address');
 
     const handlePlaceOrder = () => {
-        navigate('/orders');
+        navigate('/order-confirmation');
     };
 
     const handleAddressSubmit = (e: React.FormEvent) => {
