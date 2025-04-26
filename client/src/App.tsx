@@ -10,6 +10,7 @@ import CartDetails from './pages/CartDetails'
 import SignUp from './pages/SignUp'
 import Checkout from './pages/Checkout'
 import OrderDetails from './pages/OrderDetails'
+import ProtectedRoute from './components/ProtectedRoute';
 
 // Layout wrapper component
 const MainLayout = ({ children }: { children: React.ReactNode }) => {
@@ -63,7 +64,9 @@ function App() {
         } />
         <Route path="/cart-details" element={
           <MainLayout>
-            <CartDetails />
+            <ProtectedRoute>
+              <CartDetails />
+            </ProtectedRoute>
           </MainLayout>
         } />
         <Route path='/orders' element={
