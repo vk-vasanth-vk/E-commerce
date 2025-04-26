@@ -1,8 +1,10 @@
 import Cart from "@/components/Cart";
 import { useNavigate } from "react-router-dom";
+import { useCart } from "@/context/CartContext";
 
 const CardDetails = () => {
     const navigate = useNavigate();
+    const { cart, removeFromCart, updateQuantity } = useCart();
 
     const handleCheckout = () => {
         navigate('/checkout');
@@ -37,9 +39,19 @@ const CardDetails = () => {
 
             {/* Cart Items */}
             <div className="space-y-4">
-                <Cart />
-                <Cart />
-                <Cart />
+                {cart.map((item) => (
+                    <Cart
+                        key={item.id}
+                        id={item.id}
+                        name={item.name}
+                        description={item.description}
+                        price={item.price}
+                        image={item.image}
+                        quantity={item.quantity}
+                        removeFromCart={removeFromCart}
+                        updateQuantity={updateQuantity}
+                    />
+                ))}
             </div>
         </div>
     )

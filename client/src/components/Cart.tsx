@@ -3,7 +3,18 @@ import { Button } from "./ui/button"
 import { Minus, Plus, Trash2 } from "lucide-react"
 import { Checkbox } from "./ui/checkbox"
 
-const Cart = () => {
+interface CartProps {
+    id: string;
+    name: string;
+    description: string;
+    price: number;
+    image: string;
+    quantity: number;
+    removeFromCart: (id: string) => void;
+    updateQuantity: (id: string, quantity: number) => void;
+}
+
+const Cart = ({ id, name, description, price, image, quantity, removeFromCart, updateQuantity }: CartProps) => {
     return (
         <Card className="w-full hover:shadow-lg transition-shadow duration-300">
             <CardContent className="p-0">
@@ -16,7 +27,7 @@ const Cart = () => {
                     {/* Price Tag - Absolute Position */}
                     <div className="absolute top-4 right-4 z-10">
                         <span className="text-xl font-bold bg-white/90 px-3 py-1 rounded-lg shadow-sm">
-                            $99.99
+                            ${price}
                         </span>
                     </div>
 
@@ -32,10 +43,9 @@ const Cart = () => {
                     {/* Content Container */}
                     <div className="p-4 md:p-6 flex flex-col justify-between w-full md:w-3/4">
                         <div>
-                            <h2 className="text-xl md:text-2xl font-semibold mb-2">Product Title</h2>
+                            <h2 className="text-xl md:text-2xl font-semibold mb-2">{name}</h2>
                             <p className="text-gray-600 mb-4">
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
-                                Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                                {description}
                             </p>
                         </div>
                         
@@ -50,7 +60,7 @@ const Cart = () => {
                                     >
                                         <Minus className="h-4 w-4" />
                                     </Button>
-                                    <span className="w-8 text-center">1</span>
+                                    <span className="w-8 text-center">{quantity}</span>
                                     <Button 
                                         variant="ghost" 
                                         size="icon"
@@ -63,6 +73,7 @@ const Cart = () => {
                                     variant="destructive" 
                                     size="sm"
                                     className="flex items-center gap-2"
+                                    onClick={() => removeFromCart(id)}
                                 >
                                     <Trash2 className="h-4 w-4" />
                                     Remove

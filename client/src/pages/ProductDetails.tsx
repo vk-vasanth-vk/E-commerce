@@ -1,12 +1,14 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { getProductById } from "@/api/product";
+import { useCart } from "@/context/CartContext";
 
 const ProductDetails = () => {
     const navigate = useNavigate();
     const { id } = useParams();
+    const { addToCart } = useCart();
 
-    const [product, setProduct] = useState([]); // TODO: Change to product type from Product.tsx in api folde
+    const [product, setProduct] = useState([]);
 
     useEffect(() => {
         const fetchProduct = async () => {
@@ -19,6 +21,15 @@ const ProductDetails = () => {
     })
 
     const handleAddToCart = () => {
+        addToCart({
+            id: id,
+            name: product.name,
+            description: product.description,
+            price: product.price,
+            image: "https://via.placeholder.com/400", 
+            quantity: product.stock
+          });
+        
         navigate('/cart-details');
     };
 
