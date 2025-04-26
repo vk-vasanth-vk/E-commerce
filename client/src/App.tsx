@@ -42,7 +42,9 @@ function App() {
 
         <Route path='/checkout' element={
           <SecondaryLayout>
-            <Checkout />
+            <ProtectedRoute>
+              <Checkout />
+            </ProtectedRoute>
           </SecondaryLayout>
         } />
 
@@ -71,7 +73,9 @@ function App() {
         } />
         <Route path='/orders' element={
           <MainLayout>
-            <OrderDetails />
+            <ProtectedRoute>
+              <OrderDetails />
+            </ProtectedRoute>
           </MainLayout>
         } />
       </Routes>
