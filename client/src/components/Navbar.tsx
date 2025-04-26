@@ -1,5 +1,12 @@
 import SearchBox from "./SearchBox";
 import { Link } from "react-router-dom";
+import {
+  NavigationMenu,
+  NavigationMenuContent,
+  NavigationMenuItem,
+  NavigationMenuList,
+  NavigationMenuTrigger,
+} from "@/components/ui/navigation-menu"
 
 const Navbar = () => {
     return (
@@ -13,8 +20,30 @@ const Navbar = () => {
                 <SearchBox />
                 
                 {/* Navigation Links - Hidden on mobile */}
-                <div className="hidden md:flex space-x-4 lg:space-x-6">
-                    <Link to="/account" className="hover:text-gray-600">Account</Link>
+                <div className="hidden md:flex items-center space-x-4 lg:space-x-6">
+                    <NavigationMenu>
+                        <NavigationMenuList>
+                            <NavigationMenuItem>
+                                <NavigationMenuTrigger>Account</NavigationMenuTrigger>
+                                <NavigationMenuContent className="absolute left-0">
+                                    <ul className="grid gap-3 p-4 w-[200px]">
+                                        <li className="cursor-pointer hover:bg-gray-100 p-2 rounded">
+                                            <Link to={"/signup"} >Signup</Link>
+                                        </li>
+                                        <li className="cursor-pointer hover:bg-gray-100 p-2 rounded">
+                                            Orders
+                                        </li>
+                                        <li className="cursor-pointer hover:bg-gray-100 p-2 rounded">
+                                            Settings
+                                        </li>
+                                        <li className="cursor-pointer hover:bg-gray-100 p-2 rounded text-red-600">
+                                            Logout
+                                        </li>
+                                    </ul>
+                                </NavigationMenuContent>
+                            </NavigationMenuItem>
+                        </NavigationMenuList>
+                    </NavigationMenu>
                     <Link to="/cart-details" className="hover:text-gray-600">Cart</Link>
                 </div>
                 

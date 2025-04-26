@@ -8,7 +8,7 @@ import Electronics from './pages/electronics/electronics'
 import ProductDetails from './pages/ProductDetails'
 import CartDetails from './pages/CartDetails'
 import SignUp from './pages/SignUp'
-import Checkout from './pages/checkout'
+import Checkout from './pages/Checkout'
 import OrderDetails from './pages/OrderDetails'
 
 // Layout wrapper component
