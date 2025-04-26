@@ -27,7 +27,7 @@ const SignUp = () => {
       const response = await registerUser({
         name: formData.name,
         email: formData.email,
-        password: formData.password,
+        password: '',
       });
 
       if(response.data.token) {
@@ -46,7 +46,8 @@ const SignUp = () => {
     <div className="min-h-screen flex items-center justify-center">
       <div className="max-w-md w-full">
         <h2 className="text-center text-2xl font-bold">Create your account</h2>
-        <SignUpForm onSubmit={handleSignUp} loading={loading} error={error} />
+        {error && <div className="text-red-500 text-sm text-center mt-2">{error}</div>}
+        <SignUpForm onSubmit={handleSignUp} loading={loading} />
       </div>
     </div>
   );

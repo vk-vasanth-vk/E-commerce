@@ -5,9 +5,14 @@ export const validateSignUp = (formData: SignUpFormData): string | null => {
     return "All fields are required";
   }
 
-  if (formData.password !== formData.confirmPassword) {
-    return "Passwords do not match";
+  if (!validateEmail(formData.email)) {
+    return "Invalid email format";
   }
 
   return null;
+};
+
+const validateEmail = (email: string): boolean => {
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  return emailRegex.test(email);
 };

@@ -7,15 +7,13 @@ import { SignUpFormData } from "@/types/auth";
 interface Props {
   onSubmit: (formData: SignUpFormData) => void;
   loading: boolean;
-  error: string;
 }
 
-export const SignUpForm = ({ onSubmit, loading, error }: Props) => {
+export const SignUpForm = ({ onSubmit, loading }: Props) => {
   const [formData, setFormData] = useState<SignUpFormData>({
     name: '',
     email: '',
     password: '',
-    confirmPassword: ''
   });
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -46,13 +44,7 @@ export const SignUpForm = ({ onSubmit, loading, error }: Props) => {
           <Label htmlFor="password">Password</Label>
           <Input id="password" name="password" type="password" required value={formData.password} onChange={handleChange} />
         </div>
-        <div>
-          <Label htmlFor="confirmPassword">Confirm Password</Label>
-          <Input id="confirmPassword" name="confirmPassword" type="password" required value={formData.confirmPassword} onChange={handleChange} />
-        </div>
       </div>
-
-      {error && <div className="text-red-500 text-sm text-center">{error}</div>}
 
       <Button type="submit" className="w-full" disabled={loading}>
         {loading ? "Signing up..." : "Sign Up"}
