@@ -9,7 +9,8 @@ const Category = ({ category }: CategoryProps) => {
     const navigate = useNavigate();
 
     const handleCategoryClick = () => {
-        navigate('/electronics');
+        const route = category.toLowerCase().replace(/\s+/g, '-');
+        navigate(`/${route}`);
     };
 
     return (

@@ -6,13 +6,13 @@ interface GridLayoutProps {
 
 const catogories = [
     'Electronics',
-    'Clothing',
-    'Home & Garden',
-    'Beauty & Personal Care',
-    'Toys & Games',
-    'Sports & Outdoors',
-    'Automotive',
-    'Health & Wellness',
+    'Beauty',
+    'Toys',
+    'Grocery',
+    'Fashion',
+    'Books',
+    'Home Appliances',
+    'Sports',
 ]
 
 const GridLayout = ({className}: GridLayoutProps) => {
