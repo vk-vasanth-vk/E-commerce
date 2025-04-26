@@ -26,6 +26,7 @@ interface Payment {
 const Checkout = () => {
     const location = useLocation();
     const totalAmount = location.state?.totalAmount || 0;
+    const selectedProducts = location.state?.selectedProducts || [];
     const navigate = useNavigate();
     const [address, setAddress] = useState<Address | null>(null);
     const [payment, setPayment] = useState<Payment | null>(null);
@@ -147,6 +148,17 @@ const Checkout = () => {
                             <CardTitle>Order Summary</CardTitle>
                         </CardHeader>
                         <CardContent className="space-y-4">
+                            {/* Selected Products List */}
+                            <div className="space-y-2">
+                                {selectedProducts.map((product) => (
+                                    <div key={product.id} className="flex justify-between text-sm">
+                                        <span>{product.name} × {product.quantity}</span>
+                                        <span>${(product.price * product.quantity).toFixed(2)}</span>
+                                    </div>
+                                ))}
+                                <Separator className="my-4" />
+                            </div>
+
                             <div className="space-y-2">
                                 <div className="flex justify-between">
                                     <span className="text-gray-600">Subtotal</span>

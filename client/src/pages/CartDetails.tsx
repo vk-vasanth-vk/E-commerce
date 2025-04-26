@@ -21,8 +21,22 @@ const CartDetails = () => {
         .reduce((sum, item) => sum + (item.price * item.quantity), 0);
 
     const handleCheckout = () => {
+        // Create an array of selected products with their details
+        const selectedProducts = Array.from(selectedItems.values()).map(item => {
+            const product = cart.find(p => p.id === item.id);
+            return {
+                id: item.id,
+                name: product?.name || '',
+                quantity: item.quantity,
+                price: item.price
+            };
+        });
+
         navigate('/checkout', {
-            state: { totalAmount: totalPrice }
+            state: { 
+                totalAmount: totalPrice,
+                selectedProducts: selectedProducts
+            }
         });
     };
 
