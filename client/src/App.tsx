@@ -11,6 +11,7 @@ import SignUp from './pages/SignUp'
 import Checkout from './pages/Checkout'
 import OrderDetails from './pages/OrderDetails'
 import ProtectedRoute from './components/ProtectedRoute';
+import Login from './pages/Login'
 
 // Layout wrapper component
 const MainLayout = ({ children }: { children: React.ReactNode }) => {
@@ -38,7 +39,7 @@ function App() {
       <Routes>
         {/* Auth routes without Navbar and Footer */}
         <Route path="/signup" element={<SignUp />} />
-        {/* <Route path="/login" element={<Login />} /> */}
+        <Route path="/login" element={<Login />} />
 
         <Route path='/checkout' element={
           <SecondaryLayout>

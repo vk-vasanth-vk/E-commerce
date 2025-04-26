@@ -27,7 +27,7 @@ const SignUp = () => {
       const response = await registerUser({
         name: formData.name,
         email: formData.email,
-        password: '',
+        password: formData.password,
       });
 
       if(response.data.token) {
@@ -37,6 +37,7 @@ const SignUp = () => {
 
     } catch (err) {
       setError("Something went wrong. Please try again.");
+      console.log("Error: ", err);
     } finally {
       setLoading(false);
     }
