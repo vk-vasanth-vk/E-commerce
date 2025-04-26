@@ -22,12 +22,13 @@ const SignUp = () => {
     }
 
     try {
-      await registerUser({
+      const response = await registerUser({
         name: formData.name,
         email: formData.email,
         password: formData.password,
       });
-      navigate("/login");
+
+      navigate("/");
     } catch (err) {
       setError("Something went wrong. Please try again.");
     } finally {
