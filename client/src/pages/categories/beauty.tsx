@@ -15,7 +15,7 @@ const Beauty = () => {
         };
     
         fetchProducts();
-    })
+    }, [])
 
     return (
         <SidebarProvider>
@@ -24,9 +24,10 @@ const Beauty = () => {
                 <h1 className="text-3xl font-bold mb-4">Beauty</h1>
                 <div className="space-y-4">
                     {
-                        products.map((product) => (
-                            <List key={product.id} title={product.name} description={product.description} price={product.price}  />
-                        ))
+                        products.map((product) => {
+                            return (
+                            <List key={product._id} id={product._id} title={product.name} description={product.description} price={product.price}  />
+                        )})
                     }
                 </div>
             </div>

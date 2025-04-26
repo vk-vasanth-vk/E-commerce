@@ -8,3 +8,7 @@ export const getProductsByCategory = async (category: string) => {
 export const getAllProducts = async () => {
   return axios.get(`${API}/products`);
 };
+
+export const getProductById = async (id: string) => {
+  return axios.get(`${API}/products/${id}`);
+};

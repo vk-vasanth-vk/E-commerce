@@ -1,7 +1,22 @@
-import { useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
+import { getProductById } from "@/api/product";
 
 const ProductDetails = () => {
     const navigate = useNavigate();
+    const { id } = useParams();
+
+    const [product, setProduct] = useState([]); // TODO: Change to product type from Product.tsx in api folde
+
+    useEffect(() => {
+        const fetchProduct = async () => {
+            const response = await getProductById(id);
+            const product = response.data;
+            setProduct(product);
+        };
+    
+        fetchProduct();
+    })
 
     const handleAddToCart = () => {
         navigate('/cart-details');
@@ -23,11 +38,9 @@ const ProductDetails = () => {
 
                 {/* Product Details - 40% */}
                 <div className="w-full lg:w-[30%] space-y-4 border">
-                    <h1 className="text-3xl font-bold">Product Name</h1>
+                    <h1 className="text-3xl font-bold">{product.name}</h1>
                     <p className="text-gray-600">
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
-                        Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                        Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.
+                        {product.description}
                     </p>
                     <div className="space-y-2">
                         <h3 className="font-semibold">Features:</h3>
@@ -37,11 +50,12 @@ const ProductDetails = () => {
                             <li>Feature 3</li>
                         </ul>
                     </div>
+                    <p>{product.details}</p>
                 </div>
 
                 {/* Price Details - 20% */}
                 <div className="border w-full lg:w-[30%] bg-gray-50 p-4 rounded-lg space-y-4 h-fit">
-                    <div className="text-3xl font-bold">$99.99</div>
+                    <div className="text-3xl font-bold">${product.price}</div>
                     <div className="space-y-2 text-sm text-gray-600">
                         <p>✓ Free Delivery</p>
                         <p>✓ 30-Day Returns</p>

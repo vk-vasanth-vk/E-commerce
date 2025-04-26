@@ -5,13 +5,14 @@ interface ListProps {
     title: string;
     description: string;
     price: number;
+    id: string;
 }
 
-const List = ({ title, description, price }: ListProps) => {
+const List = ({ title, description, price, id }: ListProps) => {
     const navigate = useNavigate();
 
     const handleProductClick = () => {
-        navigate('/product-details');
+        navigate(`/product-details/${id}`);
     };
 
     return (

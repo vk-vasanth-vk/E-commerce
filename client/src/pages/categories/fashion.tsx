@@ -15,7 +15,7 @@ const Fashion = () => {
         };
     
         fetchProducts();
-    })
+    }, [])
 
     return (
         <SidebarProvider>
@@ -25,7 +25,7 @@ const Fashion = () => {
                 <div className="space-y-4">
                     {
                         products.map((product) => (
-                            <List key={product.id} title={product.name} description={product.description} price={product.price}  />
+                            <List key={product._id} id={product._id} title={product.name} description={product.description} price={product.price}  />
                         ))
                     }
                 </div>

@@ -103,7 +103,7 @@ function App() {
           </MainLayout>
         } />
 
-        <Route path="/product-details" element={
+        <Route path="/product-details/:id" element={
           <MainLayout>
             <ProductDetails />
           </MainLayout>
