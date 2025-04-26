@@ -1,4 +1,12 @@
+import { useNavigate } from "react-router-dom";
+
 const ProductDetails = () => {
+    const navigate = useNavigate();
+
+    const handleAddToCart = () => {
+        navigate('/cart-details');
+    };
+
     return (
         <main className="container mx-auto px-4 py-8">
             <div className="flex flex-col lg:flex-row gap-6">
@@ -39,7 +47,10 @@ const ProductDetails = () => {
                         <p>✓ 30-Day Returns</p>
                         <p>✓ 1 Year Warranty</p>
                     </div>
-                    <button className="w-full bg-black text-white py-3 rounded-lg hover:bg-gray-800 transition-colors">
+                    <button 
+                        className="w-full bg-black text-white py-3 rounded-lg hover:bg-gray-800 transition-colors"
+                        onClick={handleAddToCart}
+                    >
                         Add to Cart
                     </button>
                 </div>
@@ -48,4 +59,4 @@ const ProductDetails = () => {
     )
 }
 
-export default ProductDetails
+export default ProductDetails;

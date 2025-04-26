@@ -1,6 +1,7 @@
 import './App.css'
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import Navbar from './components/Navbar'
+import SecondaryNavbar from './components/SecondaryNavbar'
 import Home from './components/Home'
 import Footer from './components/Footer'
 import Electronics from './pages/electronics/electronics'
@@ -8,7 +9,7 @@ import ProductDetails from './pages/ProductDetails'
 import CartDetails from './pages/CartDetails'
 import SignUp from './pages/SignUp'
 import Checkout from './pages/checkout'
-import Orders from './pages/Orders'
+import OrderDetails from './pages/OrderDetails'
 
 // Layout wrapper component
 const MainLayout = ({ children }: { children: React.ReactNode }) => {
@@ -21,6 +22,15 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
   )
 }
 
+const SecondaryLayout = ({ children }: { children: React.ReactNode }) => {
+  return (
+    <>
+      <SecondaryNavbar />
+      {children}
+    </>
+  )
+}
+
 function App() {
   return (
     <Router>
@@ -29,8 +39,11 @@ function App() {
         <Route path="/signup" element={<SignUp />} />
         {/* <Route path="/login" element={<Login />} /> */}
 
-        <Route path='/checkout' element={<Checkout />} />
-        <Route path='/orders' element={<Orders />} />
+        <Route path='/checkout' element={
+          <SecondaryLayout>
+            <Checkout />
+          </SecondaryLayout>
+        } />
 
         {/* Main routes with Navbar and Footer */}
         <Route path="/" element={
@@ -51,6 +64,11 @@ function App() {
         <Route path="/cart-details" element={
           <MainLayout>
             <CartDetails />
+          </MainLayout>
+        } />
+        <Route path='/orders' element={
+          <MainLayout>
+            <OrderDetails />
           </MainLayout>
         } />
       </Routes>

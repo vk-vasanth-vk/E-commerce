@@ -1,8 +1,18 @@
 import { Card, CardContent } from "./ui/card"
+import { useNavigate } from "react-router-dom"
 
 const List = () => {
+    const navigate = useNavigate();
+
+    const handleProductClick = () => {
+        navigate('/product-details');
+    };
+
     return (
-        <Card className="w-full hover:shadow-lg transition-shadow duration-300">
+        <Card 
+            className="w-full hover:shadow-lg transition-shadow duration-300 cursor-pointer" 
+            onClick={handleProductClick}
+        >
             <CardContent className="p-0">
                 <div className="flex flex-col md:flex-row">
                     {/* Image Container */}

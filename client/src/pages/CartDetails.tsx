@@ -1,6 +1,13 @@
 import Cart from "@/components/Cart";
+import { useNavigate } from "react-router-dom";
 
 const CardDetails = () => {
+    const navigate = useNavigate();
+
+    const handleCheckout = () => {
+        navigate('/checkout');
+    };
+
     return (
         <div className="p-10">
             {/* Header with Cart Title and Checkout Summary */}
@@ -18,7 +25,10 @@ const CardDetails = () => {
                             <span className="text-gray-600">Total:</span>
                             <span className="font-bold">$299.97</span>
                         </div>
-                        <button className="bg-black text-white px-6 py-2 rounded-lg hover:bg-gray-800 transition-colors">
+                        <button 
+                            className="bg-black text-white px-6 py-2 rounded-lg hover:bg-gray-800 transition-colors"
+                            onClick={handleCheckout}
+                        >
                             Proceed to Checkout
                         </button>
                     </div>

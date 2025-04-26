@@ -6,6 +6,7 @@ import { Separator } from "@/components/ui/separator"
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog"
 import { useState } from "react"
 import { PlusCircle } from "lucide-react"
+import { useNavigate } from "react-router-dom"
 
 interface Address {
     firstName: string;
@@ -23,9 +24,14 @@ interface Payment {
 }
 
 const Checkout = () => {
+    const navigate = useNavigate();
     const [address, setAddress] = useState<Address | null>(null);
     const [payment, setPayment] = useState<Payment | null>(null);
     const [modalType, setModalType] = useState<'address' | 'payment'>('address');
+
+    const handlePlaceOrder = () => {
+        navigate('/orders');
+    };
 
     const handleAddressSubmit = (e: React.FormEvent) => {
         e.preventDefault();
@@ -162,6 +168,7 @@ const Checkout = () => {
                                 className="w-full" 
                                 size="lg"
                                 disabled={!address || !payment}
+                                onClick={handlePlaceOrder}
                             >
                                 Place Order
                             </Button>
