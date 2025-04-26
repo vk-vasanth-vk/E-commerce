@@ -6,7 +6,7 @@ import { Separator } from "@/components/ui/separator"
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog"
 import { useState } from "react"
 import { PlusCircle } from "lucide-react"
-import { useNavigate } from "react-router-dom"
+import { useNavigate, useLocation } from "react-router-dom"
 
 interface Address {
     firstName: string;
@@ -24,6 +24,8 @@ interface Payment {
 }
 
 const Checkout = () => {
+    const location = useLocation();
+    const totalAmount = location.state?.totalAmount || 0;
     const navigate = useNavigate();
     const [address, setAddress] = useState<Address | null>(null);
     const [payment, setPayment] = useState<Payment | null>(null);
@@ -148,7 +150,7 @@ const Checkout = () => {
                             <div className="space-y-2">
                                 <div className="flex justify-between">
                                     <span className="text-gray-600">Subtotal</span>
-                                    <span>$299.97</span>
+                                    <span>${totalAmount.toFixed(2)}</span>
                                 </div>
                                 <div className="flex justify-between">
                                     <span className="text-gray-600">Shipping</span>
@@ -156,12 +158,12 @@ const Checkout = () => {
                                 </div>
                                 <div className="flex justify-between">
                                     <span className="text-gray-600">Tax</span>
-                                    <span>$29.99</span>
+                                    <span>${(totalAmount * 0.1).toFixed(2)}</span>
                                 </div>
                                 <Separator />
                                 <div className="flex justify-between font-bold text-lg">
                                     <span>Total</span>
-                                    <span>$339.95</span>
+                                    <span>${(totalAmount + 9.99 + (totalAmount * 0.1)).toFixed(2)}</span>
                                 </div>
                             </div>
                             <Button 
