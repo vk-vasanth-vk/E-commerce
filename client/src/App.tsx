@@ -7,6 +7,7 @@ import Electronics from './pages/electronics/electronics'
 import ProductDetails from './pages/ProductDetails'
 import CartDetails from './pages/CartDetails'
 import SignUp from './pages/SignUp'
+import Checkout from './pages/checkout'
 
 // Layout wrapper component
 const MainLayout = ({ children }: { children: React.ReactNode }) => {
@@ -26,6 +27,8 @@ function App() {
         {/* Auth routes without Navbar and Footer */}
         <Route path="/signup" element={<SignUp />} />
         {/* <Route path="/login" element={<Login />} /> */}
+
+        <Route path='/checkout' element={<Checkout />} />
 
         {/* Main routes with Navbar and Footer */}
         <Route path="/" element={
