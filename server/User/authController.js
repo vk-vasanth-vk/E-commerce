@@ -1,5 +1,5 @@
 import { UserService } from "./userService.js";
-import { validateRegisterForm, validateLoginForm } from "./validateForm.js";
+import { validateRegisterForm, validateLoginForm } from "../utils/validateForm.js";
 import generateToken from "../utils/generateToken.js";
 
 const userService = new UserService();

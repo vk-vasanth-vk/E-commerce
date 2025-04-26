@@ -19,6 +19,9 @@ app.get("/", (req, res) => {
 import authRoutes from "./routes/auth.js";
 app.use("/api", authRoutes);
 
+import productRoutes from "./routes/product.js";
+app.use("/api", productRoutes);
+
 // DB Connect
 mongoose.connect(process.env.MONGO_URI, {
   useNewUrlParser: true,
