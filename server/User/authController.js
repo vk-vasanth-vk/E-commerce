@@ -1,13 +1,14 @@
 import { UserService } from "./userService.js";
-import { validateForm } from "./validateForm.js";
+import { validateRegisterForm, validateLoginForm } from "./validateForm.js";
 import generateToken from "../utils/generateToken.js";
 
 const userService = new UserService();
 
+// New user registration
 export const registerUser = async (req, res) => {
   try {
     // Validation
-    const { isValid, errors } = validateForm(req.body);
+    const { isValid, errors } = validateRegisterForm(req.body);
     if (!isValid) {
       return res.status(422).json({ errors });
     }
@@ -37,3 +38,34 @@ export const registerUser = async (req, res) => {
     res.status(500).json({ message: "Server error" });
   }
 };
+
+// User login
+export const loginUser = async (req, res) => {
+  try {
+    // Validation
+    const { isValid, errors } = validateLoginForm(req.body);
+    if (!isValid) {
+      return res.status(422).json({ errors });
+    }
+
+    // Business Logic
+    const user = await userService.loginUser(req.body);
+
+    // Generate Token
+    const token = generateToken(user._id);
+
+    // Response
+    res.status(200).json({
+      message: "User logged in successfully!",
+      user: {
+        id: user._id,
+        name: user.name,
+        email: user.email,
+      },
+      token,
+    });
+  } catch (error) {
+    console.error("Login error:", error);
+    res.status(500).json({ message: "Server error" });
+  }
+}

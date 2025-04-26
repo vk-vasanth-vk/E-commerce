@@ -20,4 +20,21 @@ export class UserService {
 
     return await newUser.save();
   }
+
+  async loginUser(userData) {
+    const { email, password } = userData;
+
+    const user = await User.findOne({ email });
+    if (!user) {
+      throw new Error("No user found!");
+    }
+
+    const isPasswordValid = await bcrypt.compare(password, user.password);
+
+    if (!isPasswordValid) {
+      throw new Error("Invalid password!");
+    }
+
+    return isPasswordValid;
+  }
 }

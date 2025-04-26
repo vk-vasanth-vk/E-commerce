@@ -1,5 +1,5 @@
 import express from "express";
-import { registerUser } from "../User/authController.js";
+import { registerUser, loginUser } from "../User/authController.js";
 
 const router = express.Router();
 
@@ -8,4 +8,10 @@ const router = express.Router();
 // @access  Public
 router.post("/register", registerUser);
 
+// @route   POST /api/login
+// @desc    Login and get JWT token
+// @access  Public
+router.post("/login", loginUser);
+
 export default router;
+
