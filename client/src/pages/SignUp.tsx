@@ -4,11 +4,13 @@ import { SignUpForm } from "@/components/form/SignUpForm";
 import { validateSignUp } from "@/utils/validation";
 import { registerUser } from "@/api/auth";
 import { SignUpFormData } from "@/types/auth";
+import { useAuth } from "@/context/AuthContext";
 
 const SignUp = () => {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+  const { setToken } = useAuth();
 
   const handleSignUp = async (formData: SignUpFormData) => {
     setError("");
@@ -28,7 +30,11 @@ const SignUp = () => {
         password: formData.password,
       });
 
-      navigate("/");
+      if(response.data.token) {
+        setToken(response.data.token);
+        navigate("/");
+      }
+
     } catch (err) {
       setError("Something went wrong. Please try again.");
     } finally {
