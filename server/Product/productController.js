@@ -3,7 +3,7 @@ import Product from "../models/Product.js";
 // Get all products
 export const getAllProducts = async (req, res) => {
   try {
-    const products = await Product.find({});
+    const products = await Product.find({}, "name description price image");
     res.json(products);
   } catch (error) {
     console.error("Error fetching products:", error);
