@@ -1,12 +1,18 @@
 import { Card, CardContent } from "./ui/card"
 import { Button } from "./ui/button"
 import { Minus, Plus, Trash2 } from "lucide-react"
+import { Checkbox } from "./ui/checkbox"
 
 const Cart = () => {
     return (
         <Card className="w-full hover:shadow-lg transition-shadow duration-300">
             <CardContent className="p-0">
                 <div className="flex flex-col md:flex-row relative">
+                    {/* Checkbox Container */}
+                    <div className="flex items-center px-4 md:px-6 py-4 md:absolute md:h-full md:justify-center">
+                        <Checkbox />
+                    </div>
+
                     {/* Price Tag - Absolute Position */}
                     <div className="absolute top-4 right-4 z-10">
                         <span className="text-xl font-bold bg-white/90 px-3 py-1 rounded-lg shadow-sm">
@@ -14,8 +20,8 @@ const Cart = () => {
                         </span>
                     </div>
 
-                    {/* Image Container */}
-                    <div className="w-full md:w-1/4 h-48 md:h-auto">
+                    {/* Image Container - Adjusted with left padding for checkbox */}
+                    <div className="w-full md:w-1/4 h-48 md:h-auto md:ml-12">
                         <img 
                             src="https://via.placeholder.com/400"
                             alt="Product"
