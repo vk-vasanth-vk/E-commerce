@@ -1,5 +1,4 @@
 import bcrypt from "bcryptjs";
-import jwt from "jsonwebtoken";
 import User from "../models/User.js";
 import generateToken from "../utils/generateToken.js";
 
@@ -34,7 +33,7 @@ export const registerUser = async (req, res) => {
     const token = generateToken(newUser._id);
 
     // Send response
-    res.status(201).json({
+    res.status(200).json({
       message: "User registered successfully!",
       user: {
         id: newUser._id,

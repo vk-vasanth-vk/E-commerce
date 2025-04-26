@@ -6,8 +6,14 @@ import dotenv from "dotenv";
 dotenv.config();
 const app = express();
 
+// Middlewares
 app.use(cors());
 app.use(express.json());
+
+// Health check
+app.get("/", (req, res) => {
+  res.send("API is running...");
+});
 
 // Routes
 import authRoutes from "./routes/auth.js";
@@ -17,9 +23,9 @@ app.use("/api", authRoutes);
 mongoose.connect(process.env.MONGO_URI, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
-}).then(() => {
-  console.log("MongoDB connected");
-}).catch((err) => console.log(err));
+})
+.then(() => console.log("MongoDB connected"))
+.catch((err) => console.log(err));
 
 // Start Server
 const PORT = process.env.PORT || 5000;
