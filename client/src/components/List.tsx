@@ -1,7 +1,13 @@
 import { Card, CardContent } from "./ui/card"
 import { useNavigate } from "react-router-dom"
 
-const List = () => {
+interface ListProps {
+    title: string;
+    description: string;
+    price: number;
+}
+
+const List = ({ title, description, price }: ListProps) => {
     const navigate = useNavigate();
 
     const handleProductClick = () => {
@@ -27,16 +33,15 @@ const List = () => {
                     {/* Content Container */}
                     <div className="p-4 md:p-6 flex flex-col justify-between w-full md:w-3/4">
                         <div>
-                            <h2 className="text-xl md:text-2xl font-semibold mb-2">Product Title</h2>
+                            <h2 className="text-xl md:text-2xl font-semibold mb-2">{title}</h2>
                             <p className="text-gray-600 mb-4">
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
-                                Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                                {description}
                             </p>
                         </div>
                         
                         {/* Price and Action Button */}
                         <div className="flex items-center justify-between">
-                            <span className="text-lg font-bold text-gray-900">$99.99</span>
+                            <span className="text-lg font-bold text-gray-900">${price}</span>
                             {/* <button className="px-4 py-2 bg-black text-white rounded-lg hover:bg-gray-800 transition-colors">
                                 Add to Cart
                             </button> */}
