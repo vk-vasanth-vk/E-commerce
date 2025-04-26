@@ -1,14 +1,46 @@
+import { useState } from "react";
 import Cart from "@/components/Cart";
 import { useNavigate } from "react-router-dom";
 import { useCart } from "@/context/CartContext";
 
-const CardDetails = () => {
+interface SelectedItem {
+    id: string;
+    quantity: number;
+    price: number;
+}
+
+const CartDetails = () => {
     const navigate = useNavigate();
     const { cart, removeFromCart, updateQuantity } = useCart();
+    const [selectedItems, setSelectedItems] = useState<Map<string, SelectedItem>>(new Map());
 
     const handleCheckout = () => {
         navigate('/checkout');
     };
+
+    const handleItemSelect = (id: string, isSelected: boolean, selectedQuantity: number) => {
+        setSelectedItems(prev => {
+            const newMap = new Map(prev);
+            if (isSelected) {
+                const item = cart.find(i => i.id === id);
+                if (item) {
+                    newMap.set(id, {
+                        id,
+                        quantity: selectedQuantity,
+                        price: item.price
+                    });
+                }
+            } else {
+                newMap.delete(id);
+            }
+            return newMap;
+        });
+    };
+
+    // Calculate totals
+    const selectedCount = selectedItems.size;
+    const totalPrice = Array.from(selectedItems.values())
+        .reduce((sum, item) => sum + (item.price * item.quantity), 0);
 
     return (
         <div className="p-10">
@@ -21,15 +53,16 @@ const CardDetails = () => {
                     <div className="flex items-center gap-6">
                         <div className="flex gap-2">
                             <span className="text-gray-600">Selected Items:</span>
-                            <span className="font-semibold">3 items</span>
+                            <span className="font-semibold">{selectedCount} items</span>
                         </div>
                         <div className="flex gap-2">
                             <span className="text-gray-600">Total:</span>
-                            <span className="font-bold">$299.97</span>
+                            <span className="font-bold">${totalPrice.toFixed(2)}</span>
                         </div>
                         <button 
                             className="bg-black text-white px-6 py-2 rounded-lg hover:bg-gray-800 transition-colors"
                             onClick={handleCheckout}
+                            disabled={selectedCount === 0}
                         >
                             Proceed to Checkout
                         </button>
@@ -42,14 +75,11 @@ const CardDetails = () => {
                 {cart.map((item) => (
                     <Cart
                         key={item.id}
-                        id={item.id}
-                        name={item.name}
-                        description={item.description}
-                        price={item.price}
-                        image={item.image}
-                        quantity={item.quantity}
+                        {...item}
                         removeFromCart={removeFromCart}
                         updateQuantity={updateQuantity}
+                        onSelect={handleItemSelect}
+                        isSelected={selectedItems.has(item.id)}
                     />
                 ))}
             </div>
@@ -57,4 +87,4 @@ const CardDetails = () => {
     )
 }
 
-export default CardDetails;
+export default CartDetails;

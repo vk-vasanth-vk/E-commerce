@@ -1,3 +1,4 @@
+import { useState, useEffect } from "react"
 import { Card, CardContent } from "./ui/card"
 import { Button } from "./ui/button"
 import { Minus, Plus, Trash2 } from "lucide-react"
@@ -12,22 +13,55 @@ interface CartProps {
     quantity: number;
     removeFromCart: (id: string) => void;
     updateQuantity: (id: string, quantity: number) => void;
+    onSelect: (id: string, isSelected: boolean, selectedQuantity: number) => void;
+    isSelected: boolean;
 }
 
-const Cart = ({ id, name, description, price, image, quantity, removeFromCart, updateQuantity }: CartProps) => {
+const Cart = ({ 
+    id, 
+    name, 
+    description, 
+    price, 
+    image, 
+    quantity, 
+    removeFromCart, 
+    updateQuantity,
+    onSelect,
+    isSelected 
+}: CartProps) => {
+    const [quantityValue, setQuantityValue] = useState(1);
+
+    const handleQuantityChange = (newQuantity: number) => {
+        if (newQuantity >= 1) {
+            setQuantityValue(newQuantity);
+            updateQuantity(id, newQuantity);
+            // Update selected items if item is checked
+            if (isSelected) {
+                onSelect(id, true, newQuantity);
+            }
+        }
+    };
+
+    const handleCheckboxChange = (checked: boolean) => {
+        onSelect(id, checked, quantityValue);
+    };
+
     return (
         <Card className="w-full hover:shadow-lg transition-shadow duration-300">
             <CardContent className="p-0">
                 <div className="flex flex-col md:flex-row relative">
                     {/* Checkbox Container */}
                     <div className="flex items-center px-4 md:px-6 py-4 md:absolute md:h-full md:justify-center">
-                        <Checkbox />
+                        <Checkbox 
+                            checked={isSelected}
+                            onCheckedChange={handleCheckboxChange}
+                        />
                     </div>
-
+                    
                     {/* Price Tag - Absolute Position */}
                     <div className="absolute top-4 right-4 z-10">
                         <span className="text-xl font-bold bg-white/90 px-3 py-1 rounded-lg shadow-sm">
-                            ${price}
+                            ${(quantityValue * price).toFixed(2)}
                         </span>
                     </div>
 
@@ -57,14 +91,18 @@ const Cart = ({ id, name, description, price, image, quantity, removeFromCart, u
                                         variant="ghost" 
                                         size="icon"
                                         className="h-8 w-8"
+                                        onClick={() => handleQuantityChange(quantityValue - 1)}
+                                        // disabled={quantityValue <= 1}
                                     >
                                         <Minus className="h-4 w-4" />
                                     </Button>
-                                    <span className="w-8 text-center">{quantity}</span>
+                                    <span className="w-8 text-center">{quantityValue}</span>
                                     <Button 
                                         variant="ghost" 
                                         size="icon"
                                         className="h-8 w-8"
+                                        onClick={() => handleQuantityChange(quantityValue + 1)}
+                                        // disabled={quantityValue >= quantity}
                                     >
                                         <Plus className="h-4 w-4" />
                                     </Button>

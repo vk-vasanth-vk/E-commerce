@@ -37,7 +37,7 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
           p.id === item.id ? { ...p, quantity: p.quantity + item.quantity } : p
         );
       } else {
-        return [...prevCart, item];
+        return [item, ...prevCart];
       }
     });
   };
