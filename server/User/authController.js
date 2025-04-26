@@ -9,7 +9,7 @@ export const registerUser = async (req, res) => {
     // Validation
     const { isValid, errors } = validateForm(req.body);
     if (!isValid) {
-      return res.status(400).json({ errors });
+      return res.status(422).json({ errors });
     }
 
     // Business Logic
@@ -31,7 +31,7 @@ export const registerUser = async (req, res) => {
 
   } catch (error) {
     if (error.message === "Email already registered.") {
-      return res.status(400).json({ message: error.message });
+      return res.status(409).json({ message: error.message });
     }
     console.error("Register error:", error);
     res.status(500).json({ message: "Server error" });
