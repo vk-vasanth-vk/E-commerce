@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { LoginForm, LoginFormData } from "@/components/form/LoginForm";
 import { useAuth } from "@/context/AuthContext";
 import { loginUser } from "@/api/auth";
+import { getRedirectPath } from "@/utils/redirect";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -16,11 +17,15 @@ const Login = () => {
 
     try {
       const response = await loginUser(formData);
+      console.log(response); // Log the response object t
 
       if (response.data) {
         setToken(response.data.token);
         setUserDetails(response.data.user);
-        navigate("/");
+        
+        // Check for redirect path
+        const redirectPath = getRedirectPath();
+        navigate(redirectPath || '/');
       }
     } catch (err) {
       setError("Invalid email or password");

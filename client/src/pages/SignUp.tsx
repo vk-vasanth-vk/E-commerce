@@ -5,6 +5,7 @@ import { validateSignUp } from "@/utils/validation";
 import { registerUser } from "@/api/auth";
 import { SignUpFormData } from "@/types/auth";
 import { useAuth } from "@/context/AuthContext";
+import { getRedirectPath } from "@/utils/redirect";
 
 const SignUp = () => {
   const navigate = useNavigate();
@@ -33,7 +34,10 @@ const SignUp = () => {
       if(response.data) {
         setToken(response.data.token);
         setUserDetails(response.data.user);
-        navigate("/");
+        
+        // Check for redirect path
+        const redirectPath = getRedirectPath();
+        navigate(redirectPath || '/');
       }
 
     } catch (err: any) {
