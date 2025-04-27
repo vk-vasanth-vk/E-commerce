@@ -5,7 +5,7 @@ import { Card, CardContent } from "@/components/ui/card"
 
 const OrderConfirmation = () => {
     return (
-        <div className="min-h-screen flex items-center justify-center p-4">
+        <div className="mt-20 flex items-center justify-center p-4">
             <Card className="w-full max-w-lg">
                 <CardContent className="p-6 text-center space-y-6">
                     {/* Success Icon */}

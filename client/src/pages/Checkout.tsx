@@ -7,6 +7,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from 
 import { useState } from "react"
 import { PlusCircle } from "lucide-react"
 import { useNavigate, useLocation } from "react-router-dom"
+import { storeOrder } from "@/api/order"
 
 interface Address {
     firstName: string;
@@ -15,6 +16,7 @@ interface Address {
     city: string;
     state: string;
     zip: string;
+    phone: string;
 }
 
 interface Payment {
@@ -32,7 +34,15 @@ const Checkout = () => {
     const [payment, setPayment] = useState<Payment | null>(null);
     const [modalType, setModalType] = useState<'address' | 'payment'>('address');
 
-    const handlePlaceOrder = () => {
+    const handlePlaceOrder = async() => {
+        await storeOrder({
+            cartItems: selectedProducts,
+            totalAmount: totalAmount,
+            phone: address!.phone,
+            userName: address?.firstName + ' ' + address?.lastName,
+            address: address?.street + ', ' + address?.city + ', ' + address?.state + ', ' + address?.zip,
+            cardNumber: payment!.cardNumber,
+        });
         navigate('/order-confirmation');
     };
 
@@ -45,7 +55,8 @@ const Checkout = () => {
             street: "123 Main St",
             city: "City",
             state: "State",
-            zip: "12345"
+            zip: "12345",
+            phone: "123-456-7890"
         });
     };
 
