@@ -10,7 +10,7 @@ const SignUp = () => {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
-  const { setToken } = useAuth();
+  const { setToken, setUserDetails } = useAuth();
 
   const handleSignUp = async (formData: SignUpFormData) => {
     setError("");
@@ -30,8 +30,9 @@ const SignUp = () => {
         password: formData.password,
       });
 
-      if(response.data.token) {
+      if(response.data) {
         setToken(response.data.token);
+        setUserDetails(response.data.user);
         navigate("/");
       }
 

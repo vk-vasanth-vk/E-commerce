@@ -32,7 +32,7 @@ const Cart = ({
     const [quantityValue, setQuantityValue] = useState(1);
 
     const handleQuantityChange = (newQuantity: number) => {
-        if (newQuantity >= 1) {
+        if (newQuantity >= 1 && newQuantity <= quantity) {
             setQuantityValue(newQuantity);
             updateQuantity(id, newQuantity);
             // Update selected items if item is checked
@@ -92,7 +92,7 @@ const Cart = ({
                                         size="icon"
                                         className="h-8 w-8"
                                         onClick={() => handleQuantityChange(quantityValue - 1)}
-                                        // disabled={quantityValue <= 1}
+                                        disabled={quantityValue <= 1}
                                     >
                                         <Minus className="h-4 w-4" />
                                     </Button>
@@ -102,7 +102,7 @@ const Cart = ({
                                         size="icon"
                                         className="h-8 w-8"
                                         onClick={() => handleQuantityChange(quantityValue + 1)}
-                                        // disabled={quantityValue >= quantity}
+                                        disabled={quantityValue >= quantity}
                                     >
                                         <Plus className="h-4 w-4" />
                                     </Button>

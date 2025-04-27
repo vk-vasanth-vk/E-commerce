@@ -1,64 +1,37 @@
-import Order from "@/components/Order"
-import { useEffect, useState } from "react"
+import Order from "@/components/Order";
+import { useEffect, useState } from "react";
 
 interface OrderItem {
+  id: string;
   name: string;
-  image: string;
-  price: string;
+  price: number;
   quantity: number;
+  image: string;
 }
 
-interface Order {
-  id: string;
-  date: string;
-  total: string;
-  status: string;
-  items: OrderItem[];
+interface OrderData {
+  _id: string;
+  userName: string;
+  address: string;
+  phone: string;
+  cartItems: OrderItem[];
+  totalAmount: number;
+  createdAt: string;
 }
 
 const Orders = () => {
-  const [orders, setOrders] = useState<Order[]>([]);
+  const [orders, setOrders] = useState<OrderData[]>([]);
 
   useEffect(() => {
-    // Mock data - replace with actual API call
-    const mockOrders = [
-      {
-        id: "ORD-123457",
-        date: "February 1, 2024",
-        total: "$159.99",
-        status: "Processing",
-        items: [
-          {
-            name: "New Product",
-            image: "https://via.placeholder.com/150",
-            price: "$159.99",
-            quantity: 1
-          }
-        ]
-      },
-      {
-        id: "ORD-123456",
-        date: "January 15, 2024",
-        total: "$299.97",
-        status: "Delivered",
-        items: [
-          {
-            name: "Product Name 1",
-            image: "https://via.placeholder.com/150",
-            price: "$99.99",
-            quantity: 1
-          },
-          {
-            name: "Product Name 2",
-            image: "https://via.placeholder.com/150",
-            price: "$199.98",
-            quantity: 2
-          }
-        ]
-      }
-    ];
+    const fetchOrders = async () => {
+      const user = JSON.parse(localStorage.getItem("user_details")!);
 
-    setOrders(mockOrders);
+      const res = await fetch(`http://localhost:5000/api/orders/user/${user.id}`);
+      const data = await res.json();
+      setOrders(data);
+    };
+
+    fetchOrders();
   }, []);
 
   return (
@@ -70,9 +43,20 @@ const Orders = () => {
 
       {/* Orders List */}
       <div className="space-y-6">
-        {orders.map((order) => (
-          <Order key={order.id} {...order} />
-        ))}
+        {orders.length === 0 ? (
+          <p>No orders found.</p>
+        ) : (
+          orders.map((order) => (
+            <Order
+              key={order._id}
+              id={order._id}
+              date={new Date(order.createdAt).toLocaleDateString()}
+              total={order.totalAmount}
+              status={"Order Placed"}  // static for now
+              items={order.cartItems}
+            />
+          ))
+        )}
       </div>
     </div>
   );

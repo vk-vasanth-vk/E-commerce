@@ -5,14 +5,14 @@ import { Package, ChevronRight } from "lucide-react"
 interface OrderItem {
   name: string;
   image: string;
-  price: string;
+  price: number;
   quantity: number;
 }
 
 interface OrderProps {
   id: string;
   date: string;
-  total: string;
+  total: number;
   status: string;
   items: OrderItem[];
 }

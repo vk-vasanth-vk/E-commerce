@@ -9,6 +9,7 @@ import { PlusCircle } from "lucide-react"
 import { useNavigate, useLocation } from "react-router-dom"
 import { storeOrder } from "@/api/order"
 import { useCart } from "@/context/CartContext"
+import { useAuth } from "@/context/AuthContext"
 
 interface Address {
     firstName: string;
@@ -35,9 +36,11 @@ const Checkout = () => {
     const [address, setAddress] = useState<Address | null>(null);
     const [payment, setPayment] = useState<Payment | null>(null);
     const [modalType, setModalType] = useState<'address' | 'payment'>('address');
+    const {userDetails} = useAuth();
 
     const handlePlaceOrder = async() => {
         await storeOrder({
+            userId: userDetails?.id!,
             cartItems: selectedProducts,
             totalAmount: totalAmount,
             phone: address!.phone,

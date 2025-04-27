@@ -6,7 +6,7 @@ import { loginUser } from "@/api/auth";
 
 const Login = () => {
   const navigate = useNavigate();
-  const { setToken } = useAuth();
+  const { setToken, setUserDetails } = useAuth();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
@@ -19,6 +19,7 @@ const Login = () => {
 
       if (response.data) {
         setToken(response.data.token);
+        setUserDetails(response.data.user);
         navigate("/");
       }
     } catch (err) {
