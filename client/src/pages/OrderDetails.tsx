@@ -25,8 +25,13 @@ const Orders = () => {
   useEffect(() => {
     const fetchOrders = async () => {
       const user = JSON.parse(localStorage.getItem("user_details")!);
+      const token = JSON.parse(localStorage.getItem("token")!);
 
-      const res = await fetch(`http://localhost:5000/api/orders/user/${user.id}`);
+      const res = await fetch(`http://localhost:5000/api/orders/user/${user.id}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
       const data = await res.json();
       setOrders(data);
     };

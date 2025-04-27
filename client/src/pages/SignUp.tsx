@@ -36,8 +36,11 @@ const SignUp = () => {
         navigate("/");
       }
 
-    } catch (err) {
-      setError("Something went wrong. Please try again.");
+    } catch (err: any) {
+      if(err.response?.status === 409) {
+        setError("User already exists");
+        return;
+      }
       console.log("Error: ", err);
     } finally {
       setLoading(false);

@@ -38,7 +38,7 @@ const Navbar = () => {
                                             <Link to={"/signup"} >Signup</Link>
                                         </li>}
                                         <li className="cursor-pointer hover:bg-gray-100 p-2 rounded">
-                                        <Link to={"/orders"} >Orders</Link>
+                                            <Link to={"/orders"} >Orders</Link>
                                         </li>
                                         {isAuthenticated && <li className="cursor-pointer hover:bg-gray-100 p-2 rounded text-red-600" onClick={handleLogout}>
                                             Logout
