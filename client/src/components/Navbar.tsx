@@ -8,12 +8,15 @@ import {
     NavigationMenuTrigger,
 } from "@/components/ui/navigation-menu"
 import { useAuth } from "@/context/AuthContext";
+import { useCart } from "@/context/CartContext";
 
 const Navbar = () => {
     const { isAuthenticated, setToken } = useAuth();
+    const { clearCart } = useCart();
 
     const handleLogout = () => {
         setToken(null);
+        clearCart();
     }
 
     return (
