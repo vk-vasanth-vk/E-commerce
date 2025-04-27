@@ -22,6 +22,9 @@ app.use("/api", authRoutes);
 import productRoutes from "./routes/product.js";
 app.use("/api", productRoutes);
 
+import orderRoutes from "./routes/order.js";
+app.use("/api", orderRoutes);
+
 // DB Connect
 mongoose.connect(process.env.MONGO_URI, {
   useNewUrlParser: true,
