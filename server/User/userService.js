@@ -35,6 +35,6 @@ export class UserService {
       throw new Error("Invalid password!");
     }
 
-    return isPasswordValid;
+    return  user;
   }
 }

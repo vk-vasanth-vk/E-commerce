@@ -32,7 +32,7 @@ export const registerUser = async (req, res) => {
 
   } catch (error) {
     if (error.message === "Email already registered.") {
-      return res.status(409).json({ message: error.message });
+      return res.status(409).json({ message: 'Email already registered.' });
     }
     console.error("Register error:", error);
     res.status(500).json({ message: "Server error" });
