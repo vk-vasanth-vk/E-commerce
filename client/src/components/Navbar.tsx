@@ -1,5 +1,5 @@
 import SearchBox from "./SearchBox";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import {
     NavigationMenu,
     NavigationMenuContent,
@@ -13,10 +13,12 @@ import { useCart } from "@/context/CartContext";
 const Navbar = () => {
     const { isAuthenticated, setToken } = useAuth();
     const { clearCart } = useCart();
+    const Navigate = useNavigate();
 
     const handleLogout = () => {
         setToken(null);
         clearCart();
+        Navigate("/");
     }
 
     return (
