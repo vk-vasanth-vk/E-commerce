@@ -1,5 +1,6 @@
 import Order from "@/components/Order";
 import { useEffect, useState } from "react";
+import { useAuth } from "@/context/AuthContext";
 
 interface OrderItem {
   id: string;
@@ -21,13 +22,11 @@ interface OrderData {
 
 const Orders = () => {
   const [orders, setOrders] = useState<OrderData[]>([]);
+  const { userDetails, token } = useAuth();
 
   useEffect(() => {
     const fetchOrders = async () => {
-      const user = JSON.parse(localStorage.getItem("user_details")!);
-      const token = JSON.parse(localStorage.getItem("token")!);
-
-      const res = await fetch(`http://localhost:5000/api/orders/user/${user.id}`, {
+      const res = await fetch(`http://localhost:5000/api/orders/user/${userDetails.id}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },

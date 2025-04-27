@@ -36,7 +36,7 @@ const Checkout = () => {
     const [address, setAddress] = useState<Address | null>(null);
     const [payment, setPayment] = useState<Payment | null>(null);
     const [modalType, setModalType] = useState<'address' | 'payment'>('address');
-    const {userDetails} = useAuth();
+    const { userDetails, token } = useAuth();
 
     const handlePlaceOrder = async() => {
         await storeOrder({
@@ -47,7 +47,7 @@ const Checkout = () => {
             userName: address?.firstName + ' ' + address?.lastName,
             address: address?.street + ', ' + address?.city + ', ' + address?.state + ', ' + address?.zip,
             cardNumber: payment!.cardNumber,
-        });
+        }, token);
 
         // Remove only the selected products from cart
         selectedProducts.forEach(product => {

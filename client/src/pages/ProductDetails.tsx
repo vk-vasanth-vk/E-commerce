@@ -18,7 +18,7 @@ const ProductDetails = () => {
         };
     
         fetchProduct();
-    })
+    }, [])
 
     const handleAddToCart = () => {
         addToCart({
