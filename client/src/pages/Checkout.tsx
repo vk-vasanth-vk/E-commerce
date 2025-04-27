@@ -8,6 +8,7 @@ import { useState } from "react"
 import { PlusCircle } from "lucide-react"
 import { useNavigate, useLocation } from "react-router-dom"
 import { storeOrder } from "@/api/order"
+import { useCart } from "@/context/CartContext"
 
 interface Address {
     firstName: string;
@@ -27,6 +28,7 @@ interface Payment {
 
 const Checkout = () => {
     const location = useLocation();
+    const { removeFromCart } = useCart();
     const totalAmount = location.state?.totalAmount || 0;
     const selectedProducts = location.state?.selectedProducts || [];
     const navigate = useNavigate();
@@ -43,6 +45,12 @@ const Checkout = () => {
             address: address?.street + ', ' + address?.city + ', ' + address?.state + ', ' + address?.zip,
             cardNumber: payment!.cardNumber,
         });
+
+        // Remove only the selected products from cart
+        selectedProducts.forEach(product => {
+            removeFromCart(product.id);
+        });
+
         navigate('/order-confirmation');
     };
 
